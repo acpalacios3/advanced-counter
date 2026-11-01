@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function AdvancedCounter() {
 
     const [count, setCount] = useState(0);
     const [history, setHistory] = useState<number[]>([0]);
     const [step, setStep] = useState(1);
+    const [loaded, setIsLoaded] = useState(false);
 
     //   update current count and incremement history list 
     const increment = () => {
@@ -28,15 +29,51 @@ export default function AdvancedCounter() {
         setHistory([0]);
     };
 
+    // updates the history array by adding the new counter value
     function updateHistory(newValue: number) {
         setHistory((previousHistory) =>
             [...previousHistory, newValue,]
         );
     }
 
+    // Handles changes in the Step Value input
     function handleStepChange(e) {
         setStep(Number(e.target.value));
     }
+
+    // store values in the browser storage when the counter and the history change
+    useEffect(() => {
+
+        // Loaded controls when we can save, not whether information exists in the browser.
+        if (!loaded) return;
+
+        const counterData = {
+            count: count,
+            history: history
+        };
+        // JSON.stringify(): converts the JavaScript object into a text (string), because localStorage stores values as text in the browser's storage
+        localStorage.setItem("counterData", JSON.stringify(counterData));
+
+    }, [count, history, loaded]);
+
+
+    // retrieve information from the browser storage
+    useEffect(() => {
+        const savedData = localStorage.getItem("counterData");
+
+        if (savedData) {
+            const counterData = JSON.parse(savedData);
+
+
+            console.log("get data ====>", counterData);
+            console.log("count====>", counterData.count);
+            console.log("history===>", counterData.history);
+
+            setCount(counterData.count);
+            setHistory(counterData.history);
+        }
+        setIsLoaded(true);
+    }, []);
 
     return (
         <div>
@@ -51,7 +88,6 @@ export default function AdvancedCounter() {
                 <button onClick={increment}>Increment</button>
                 <button onClick={reset}>Reset</button>
             </div>
-
 
             <div>
                 <label htmlFor="Step"> Step Value</label>
@@ -74,7 +110,6 @@ export default function AdvancedCounter() {
                         </li>
                     ))}
                 </ul>
-
 
             </div>
         </div>

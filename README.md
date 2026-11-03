@@ -1,16 +1,68 @@
-# React + Vite
+## React Counter with useEffect##
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+**Description**
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Advanced counter application. This project manages multiple state dependencies and implements side effects using the `useEffect` hook. The goal is to solidify your understanding of `useState` and `useEffect`.
 
-## React Compiler
+**Technologies Used**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. React: Used to build the user interface and manage the component lifecycle.
+2. JavaScript: Handles counter operations, keyboard events, and data manipulation.
+3. CSS: Used to style the counter interface, buttons, input fields, and history list.
+4. Browser Local Storage: Stores counter data so the information remains available after refreshing the page.
 
-## Expanding the Oxlint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+**Features**
+
+1. Counter Functionality
+
+Increment the counter using the Increment button.
+Decrement the counter using the Decrement button.
+Display the current counter value.
+Use a custom step value to control how much the counter increases or decreases.
+
+2. History Tracking
+
+Maintains an array containing previous counter values.
+Adds a new value to the history every time the counter changes.
+Displays the counter history in a scrollable list.
+Resets the history when the Reset button is pressed.
+
+3. Auto-Save Functionality
+
+Uses useEffect to save the current counter value and history to localStorage.
+Uses JSON.stringify() to convert the counter data into a JSON string.
+Retrieves previously saved information when the component loads.
+Displays a saving status message to inform users when changes are being saved.
+
+4. Keyboard Event Listeners
+
+Press ArrowUp to increment the counter.
+Press ArrowDown to decrement the counter.
+
+useState
+
+count: Stores the current counter value.
+history: Maintains the array of previous counter values.
+step: Stores the custom increment and decrement value.
+loaded: Indicates when previously saved data has been loaded.
+msgsaveStatus: Controls the message displayed during the saving process.
+
+useEffect
+
+Save Data: Monitors changes to the counter and history, saves the information to local storage, and manages the saving status timer.
+Load Data: Retrieves previously saved counter information from local storage when the component mounts.
+Keyboard Events: Registers keyboard event listeners to handle the ArrowUp and ArrowDown keys and removes them during cleanup.
+
+
+**How to Run the Application**
+
+1. Install the project dependencies:
+npm install
+
+2. Start the development server:
+npm run dev
+
+3. Open the local URL provided by Vite in your browser.
+

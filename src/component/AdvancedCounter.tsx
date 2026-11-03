@@ -90,38 +90,38 @@ export default function AdvancedCounter() {
 
 
     // Handle keyboard events
-useEffect(() => {
+    useEffect(() => {
 
-    // Wait until localStorage data has loaded
-    if (!loaded) return;
+        // Wait until localStorage data has loaded
+        if (!loaded) return;
 
-    const handleKeyDown = (event: KeyboardEvent) => {
+        const handleKeyDown = (event: KeyboardEvent) => {
 
-        // Do not change the counter when the Step input is focused
-        if (event.target instanceof HTMLInputElement) return;
+            // Do not change the counter when the Step input is focused
+            if (event.target instanceof HTMLInputElement) return;
 
-        // ArrowUp increments the counter
-        if (event.key === "ArrowUp") {
-            event.preventDefault();
-            increment();
-        }
+            // ArrowUp increments the counter
+            if (event.key === "ArrowUp") {
+                event.preventDefault();
+                increment();
+            }
 
-        // ArrowDown decrements the counter
-        else if (event.key === "ArrowDown") {
-            event.preventDefault();
-            decrement();
-        }
-    };
+            // ArrowDown decrements the counter
+            else if (event.key === "ArrowDown") {
+                event.preventDefault();
+                decrement();
+            }
+        };
 
-    // Listen for keyboard events
-    document.addEventListener("keydown", handleKeyDown);
+        // Listen for keyboard events
+        document.addEventListener("keydown", handleKeyDown);
 
-    // Remove the listener when the component is updated or unmounted
-    return () => {
-        document.removeEventListener("keydown", handleKeyDown);
-    };
+        // Remove the listener when the component is updated or unmounted
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
 
-}, [count, step, loaded]);
+    }, [count, step, loaded]);
 
     return (
         <div className="container">
